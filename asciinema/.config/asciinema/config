@@ -1,0 +1,11 @@
+[record]
+command = /bin/zsh -l
+idle_time_limit = 2
+yes = true
+add_marker_key = ^x
+capture_input = false
+capture_env = SHELL,TERM,USER,HOSTNAME,KUBECONFIG,AWS_PROFILE
+
+[play]
+idle_time_limit = 2
+speed = 1
