@@ -14,6 +14,9 @@ stow zsh
 stow git
 stow tmux
 stow iterm2
+
+# Change default shell to zsh (if not already)
+chsh -s /bin/zsh
 ```
 
 ## Packages
