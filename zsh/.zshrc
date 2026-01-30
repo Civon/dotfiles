@@ -96,6 +96,7 @@ plugins=(
     alias-finder
     aliases
     aws
+    apt
     copybuffer
     copyfile
     docker
