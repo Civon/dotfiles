@@ -30,6 +30,11 @@ if [ -d "/opt/homebrew" ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+# Homebrew (Linux)
+if [ -d "/home/linuxbrew/.linuxbrew" ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -122,29 +127,29 @@ plugins=(
 )
 
 # Anitgen
-source $(brew --prefix)/share/antigen/antigen.zsh
-# source ~/antigen.zsh
-
-antigen use oh-my-zsh
-antigen theme robbyrussell
-
-antigen bundle sudo
-antigen bundle copyfile
-antigen bundle copybuffer
-antigen bundle thefuck
-antigen bundle git
-antigen bundle brew
-antigen bundle alias-finder
-antigen bundle docker
-antigen bundle kubectl
-antigen bundle terraform
-antigen bundle joshskidmore/zsh-fzf-history-search
-#antigen bundle zsh-users/zsh-history-substring-search
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle jonmosco/kube-ps1
-
-antigen apply
+# source $(brew --prefix)/share/antigen/antigen.zsh
+# # source ~/antigen.zsh
+# 
+# antigen use oh-my-zsh
+# antigen theme robbyrussell
+# 
+# antigen bundle sudo
+# antigen bundle copyfile
+# antigen bundle copybuffer
+# antigen bundle thefuck
+# antigen bundle git
+# antigen bundle brew
+# antigen bundle alias-finder
+# antigen bundle docker
+# antigen bundle kubectl
+# antigen bundle terraform
+# antigen bundle joshskidmore/zsh-fzf-history-search
+# #antigen bundle zsh-users/zsh-history-substring-search
+# antigen bundle zsh-users/zsh-autosuggestions
+# antigen bundle zsh-users/zsh-syntax-highlighting
+# antigen bundle jonmosco/kube-ps1
+# 
+# antigen apply
 
 
 # Kiro CLI post block. Keep at the bottom of this file.
@@ -155,10 +160,10 @@ export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
 
 # Performance measure
-zprof
+#zprof
 
 # Faster Alternatives: Switch to Antidote (Antigen-compatible, static compilation, 10x faster load).
 
-# ANTIDOTE_CACHE_DIR=~/.antidote
-# source $(brew --prefix)/share/antidote/antidote.zsh
-# antidote load ~/.zsh_plugins.txt
+ANTIDOTE_CACHE_DIR=~/.antidote
+source $(brew --prefix)/share/antidote/antidote.zsh
+antidote load ~/dotfiles/zsh/.zsh_plugins
