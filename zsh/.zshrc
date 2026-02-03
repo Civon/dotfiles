@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # Performance measure
-zmodload zsh/zprof
+# zmodload zsh/zprof
 
 # Kiro CLI pre block. Keep at the top of this file.
 [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
@@ -50,6 +50,11 @@ export PATH="$PATH:/usr/local/go/bin:$GOPATH/bin"
 # Brew 
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_ENV_HINTS=1
+
+# Homebrew (Linux)
+if [ -d "/home/linuxbrew/.linuxbrew" ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 
 # Aliases
 alias ll='ls -lah'
@@ -155,7 +160,7 @@ export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
 
 # Performance measure
-zprof
+# zprof
 
 # Faster Alternatives: Switch to Antidote (Antigen-compatible, static compilation, 10x faster load).
 
