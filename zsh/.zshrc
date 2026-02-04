@@ -22,6 +22,9 @@ zstyle ':omz:plugins:alias-finder' cheaper yes # disabled by default
 # Fix for Homebrew completion security warning
 ZSH_DISABLE_COMPFIX=true
 
+# XDG Base Directory
+export XDG_CONFIG_HOME="$HOME/.config"
+
 # PATH configuration
 export PATH="/usr/local/bin:$PATH"
 
