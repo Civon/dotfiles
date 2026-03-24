@@ -61,6 +61,10 @@ export PATH="$PATH:/usr/local/go/bin:$GOPATH/bin"
 #     export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 # fi
 
+# GitLab CLI
+export GLAB_DISABLE_TELEMETRY=1
+export GLAB_FORCE_HYPERLINKS=1
+
 # Brew 
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_ENV_HINTS=1
