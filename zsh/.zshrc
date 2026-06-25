@@ -3,8 +3,8 @@
 # Performance measure
 # zmodload zsh/zprof
 
-# Kiro CLI pre block. Keep at the top of this file.
-[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
+# # Kiro CLI pre block. Keep at the top of this file.
+# [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
 
 DISABLE_AUTO_UPDATE="true"
 DISABLE_MAGIC_FUNCTIONS="true"
@@ -34,6 +34,7 @@ export PATH="/usr/local/bin:$PATH"
 # Homebrew (macOS Apple Silicon)
 if [ -d "/opt/homebrew" ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
+    export HOMEBREW_CASK_OPTS="--appdir=~/Applications" # set non-admin application folder
 fi
 
 # nvm
@@ -86,9 +87,11 @@ alias grep='grep --color=auto'
 alias k='kubectl'
 alias kx='kubectx'
 alias kn='kubens'
+alias kns='kubens'
+alias c="agy-ide"
 
-alias c="antigravity"
-eval $(thefuck --alias f)
+# brew install workaround for non-admin mac
+alias bcin='brew install --cask --appdir="~/Applications"'
 
 # Modern CLI tools
 if command -v bat &> /dev/null; then
@@ -169,19 +172,47 @@ antigen bundle jonmosco/kube-ps1
 
 antigen apply
 
-
-# Kiro CLI post block. Keep at the bottom of this file.
-[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
-
-[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
-
-# Performance measure
-# zprof
+# mise must activate after antigen so its shims stay at the front of PATH
+eval "$(mise activate zsh)"
 
 # Faster Alternatives: Switch to Antidote (Antigen-compatible, static compilation, 10x faster load).
 
 # ANTIDOTE_CACHE_DIR=~/.antidote
 # source $(brew --prefix)/share/antidote/antidote.zsh
 # antidote load ~/.zsh_plugins.txt
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/allen.chan/.lmstudio/bin"
+# End of LM Studio CLI section
+
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /Users/allen.chan/.local/share/mise/installs/opentofu/latest/tofu tofu
+
+# Slim directory hook
+chpwd() {
+    if [[ -f .env ]]; then
+    set -a        # Automatically export all variables defined...
+    source .env   # ...when reading the .env file
+    set +a        # Turn auto-export back off
+    fi
+}
+autoload -U add-zsh-hook; add-zsh-hook chpwd chpwd
+[[ -f .env ]] && chpwd # Run once on shell start
+
+# Added by Antigravity IDE
+export PATH="/Users/allen.chan/.antigravity-ide/antigravity-ide/bin:$PATH"
+alias lab='glab'
+export IDE=agy-ide
+export VISUAL=agy-ide
+export EDITOR=nvim
+
+# # Kiro CLI post block. Keep at the bottom of this file.
+# [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
+# export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+# export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+#
+# [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
+
+# Performance measure
+# zprof
